@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -23,6 +24,58 @@ export async function generateStaticParams() {
   }));
 }
 
+export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const project = projects.find((p) => p.slug === slug);
+
+  if (!project) {
+    return {
+      title: "Project Not Found",
+    };
+  }
+
+  const title = `${project.title} — ${project.subtitle}`;
+  const description = project.description;
+  const canonicalUrl = `https://satyamgawali.vercel.app/projects/${project.slug}`;
+
+  return {
+    title,
+    description,
+    keywords: [
+      project.title,
+      project.subtitle,
+      ...project.technologies,
+      "Satyam Gawali",
+      "Flutter Project",
+      "Mobile App Portfolio",
+    ],
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: `${project.title} | Satyam Gawali`,
+      description,
+      url: canonicalUrl,
+      type: "article",
+      siteName: "Satyam Gawali Portfolio",
+      images: [
+        {
+          url: project.imageUrl,
+          width: 1200,
+          height: 630,
+          alt: `${project.title} Cover`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} | Satyam Gawali`,
+      description,
+      images: [project.imageUrl],
+    },
+  };
+}
+
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params;
   const project = projects.find((p) => p.slug === slug);
@@ -34,8 +87,30 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   // Cover images array
   const coverImages = project.coverImages ?? [project.imageUrl];
 
+  const projectJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": project.title,
+    "alternateName": project.subtitle,
+    "description": project.description,
+    "applicationCategory": "MobileApplication",
+    "operatingSystem": "Android, iOS, Web",
+    "author": {
+      "@type": "Person",
+      "name": "Satyam Gawali",
+      "url": "https://satyamgawali.vercel.app",
+    },
+    "url": `https://satyamgawali.vercel.app/projects/${project.slug}`,
+    "image": `https://satyamgawali.vercel.app${project.imageUrl}`,
+    ...(project.playStoreUrl ? { downloadUrl: project.playStoreUrl } : {}),
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd) }}
+      />
       <Navbar />
       <main className="flex-1 pt-32 pb-24 px-6 bg-brand-bg relative">
         {/* Subtle ambient lighting */}

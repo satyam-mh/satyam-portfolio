@@ -6,6 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://satyamgawali.dev/sitemap.xml",
+    sitemap: "https://satyamgawali.vercel.app/sitemap.xml",
   };
 }
+
