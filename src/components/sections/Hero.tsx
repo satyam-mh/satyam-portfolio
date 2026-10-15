@@ -4,7 +4,6 @@ import React from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, Send } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/Icons";
-import { profile } from "@/data/profile";
 import { links } from "@/config/links";
 import { HeroVisual } from "@/components/ui/HeroVisual";
 
@@ -38,9 +37,9 @@ export const Hero: React.FC = () => {
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-brand-violet/8 rounded-full blur-[140px] -z-10 pointer-events-none" />
       <div className="absolute bottom-1/3 right-1/4 w-[400px] h-[300px] bg-brand-cyan/6 rounded-full blur-[120px] -z-10 pointer-events-none" />
 
-      <div className="max-w-6xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      <div className="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
         {/* Text column — Editorial Hierarchy */}
-        <div className="lg:col-span-7 flex flex-col justify-center space-y-7">
+        <div className="lg:col-span-5 flex flex-col justify-center space-y-6 sm:space-y-7">
           {/* Status Badge */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -55,36 +54,33 @@ export const Hero: React.FC = () => {
           </motion.div>
 
           {/* Large Editorial Headline */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-brand-text-primary leading-[1.08] font-sans">
+          <h1 className="text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight text-brand-text-primary leading-[1.08] font-sans">
             <motion.span
               className="block"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: 0.05 }}
             >
-              Building mobile apps
+              Beyond the UI.
             </motion.span>
             <motion.span
-              className="block"
+              className="block mt-1 bg-gradient-to-r from-brand-text-primary via-brand-violet to-brand-cyan bg-clip-text text-transparent"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: 0.1 }}
             >
-              with{" "}
-              <span className="bg-gradient-to-r from-brand-text-primary via-brand-violet to-brand-cyan bg-clip-text text-transparent">
-                precision & craft.
-              </span>
+              I engineer the entire experience.
             </motion.span>
           </h1>
 
-          {/* Subtitle / Bio */}
+          {/* Concise Supporting Copy */}
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, delay: 0.15 }}
             className="text-base sm:text-lg text-brand-text-secondary leading-relaxed max-w-xl font-sans"
           >
-            {profile.bio}
+            Specializing in Flutter, Dart, Riverpod, and on-device AI. From clean domain architectures and local offline synchronization to published developer tooling, I build resilient mobile systems with production-grade craft.
           </motion.p>
 
           {/* CTAs & Socials */}
@@ -98,7 +94,7 @@ export const Hero: React.FC = () => {
               onClick={handleScrollToWork}
               className="inline-flex items-center justify-center space-x-2 px-6 py-3 rounded-full bg-brand-primary-btn-bg text-brand-primary-btn-text font-bold text-sm hover:opacity-90 transition-all duration-200 shadow-xl shadow-black/5 dark:shadow-white/5 group cursor-pointer"
             >
-              <span>Explore Selected Work</span>
+              <span>Explore My Work</span>
               <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
             </button>
 
@@ -139,8 +135,8 @@ export const Hero: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Visual column — Refined HeroVisual */}
-        <div className="lg:col-span-5 flex justify-center lg:justify-end">
+        {/* Visual column — Living Architecture */}
+        <div className="lg:col-span-7 flex justify-center lg:justify-end w-full">
           <HeroVisual />
         </div>
       </div>
